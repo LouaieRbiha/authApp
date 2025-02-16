@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { AuthService } from '../../services/auth.service';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface LoginForm {
   username: FormControl<string>;
@@ -35,6 +36,7 @@ interface LoginForm {
 })
 export class LoginComponent {
   readonly #authService = inject(AuthService);
+  readonly #router = inject(Router);
 
   loading = false;
   isPasswordVisible = false;
@@ -63,6 +65,7 @@ export class LoginComponent {
     this.#authService.login(this.loginForm.value).subscribe((res) => {
       this.loading = false;
       this.invalidCredentials = !res.success;
+      if (res.success) this.#router.navigate(['/dashboard']);
     });
   }
 }

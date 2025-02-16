@@ -1,0 +1,12 @@
+<h1>User dashboard</h1>
+
+<p *ngIf="user$ | async as user">welcome {{ user.username }}</p>
+
+<ul>
+  <li class="dashboard-actions">
+    <a [routerLink]="['/auth/login']">Login page</a>
+  </li>
+  <li class="dashboard-actions">
+    <a aria-hidden="true" (click)="logout()">Logout</a>
+  </li>
+</ul>
