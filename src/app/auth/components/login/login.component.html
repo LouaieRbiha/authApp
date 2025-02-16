@@ -9,9 +9,9 @@
     <input matInput formControlName="username" />
     <mat-icon matSuffix>person</mat-icon>
 
-    @if ( loginForm.controls.username?.invalid &&
-    (loginForm.controls.username?.dirty || loginForm.controls.username?.touched)
-    ) {
+    @if ( loginForm.controls.username.invalid &&
+    (loginForm.controls.username.dirty || loginForm.controls.username.touched) )
+    {
     <mat-error> Username is required. </mat-error>
     }
   </mat-form-field>
@@ -20,24 +20,24 @@
     <mat-label>Password</mat-label>
     <input
       matInput
-      [type]="isPasswordVisible ? 'text' : 'password'"
+      [type]="isPasswordVisible() ? 'text' : 'password'"
       formControlName="password"
     />
     <mat-icon
       class="password_visibility"
       matSuffix
-      (click)="isPasswordVisible = !isPasswordVisible"
-      >{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon
+      (click)="isPasswordVisible.set(!isPasswordVisible())"
+      >{{ isPasswordVisible() ? 'visibility_off' : 'visibility' }}</mat-icon
     >
 
-    @if ( loginForm.controls.password?.invalid &&
-    (loginForm.controls.password?.dirty || loginForm.controls.password?.touched)
-    ) {
+    @if ( loginForm.controls.password.invalid &&
+    (loginForm.controls.password.dirty || loginForm.controls.password.touched) )
+    {
     <mat-error> Password is required. </mat-error>
     }
   </mat-form-field>
 
-  @if (invalidCredentials) {
+  @if (invalidCredentials()) {
   <mat-error>The username or password you entered is incorrect.</mat-error>
   }
 
@@ -47,14 +47,14 @@
   </div>
 
   <button mat-flat-button type="submit">
-    @if (loading) {
+    @if (loading()) {
     <mat-progress-spinner
       class="white-spinner"
       diameter="20"
       mode="indeterminate"
     >
     </mat-progress-spinner>
-    } @if (!loading) {
+    } @if (!loading()) {
     <span>Login</span>
     }
   </button>

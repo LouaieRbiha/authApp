@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -28,18 +33,19 @@ interface LoginForm {
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatIconModule
-],
+    MatIconModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   readonly #authService = inject(AuthService);
   readonly #router = inject(Router);
 
-  loading = false;
-  isPasswordVisible = false;
-  invalidCredentials = false;
+  loading = signal(false);
+  isPasswordVisible = signal(false);
+  invalidCredentials = signal(false);
 
   loginForm = new FormGroup<LoginForm>({
     username: new FormControl('', {
@@ -53,17 +59,17 @@ export class LoginComponent {
   });
 
   onSubmit() {
-    this.invalidCredentials = false;
+    this.invalidCredentials.set(false);
     this.loginForm.markAllAsTouched();
     this.loginForm.updateValueAndValidity();
 
     if (this.loginForm.invalid) return;
 
-    this.loading = true;
+    this.loading.set(true);
 
     this.#authService.login(this.loginForm.value).subscribe((res) => {
-      this.loading = false;
-      this.invalidCredentials = !res.success;
+      this.loading.set(false);
+      this.invalidCredentials.set(!res.success);
       if (res.success) this.#router.navigate(['/dashboard']);
     });
   }
