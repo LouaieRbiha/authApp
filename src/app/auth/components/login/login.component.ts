@@ -12,7 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 
 import { AuthService } from '../../services/auth.service';
-import { NgIf } from '@angular/common';
+
 import { Router } from '@angular/router';
 
 interface LoginForm {
@@ -28,9 +28,8 @@ interface LoginForm {
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    MatIconModule,
-    NgIf,
-  ],
+    MatIconModule
+],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

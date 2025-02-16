@@ -9,15 +9,11 @@
     <input matInput formControlName="username" />
     <mat-icon matSuffix>person</mat-icon>
 
-    <mat-error
-      *ngIf="
-        loginForm.controls.username?.invalid &&
-        (loginForm.controls.username?.dirty ||
-          loginForm.controls.username?.touched)
-      "
-    >
-      Username is required.
-    </mat-error>
+    @if ( loginForm.controls.username?.invalid &&
+    (loginForm.controls.username?.dirty || loginForm.controls.username?.touched)
+    ) {
+    <mat-error> Username is required. </mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field MatFormFieldControl="password">
@@ -34,20 +30,16 @@
       >{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon
     >
 
-    <mat-error
-      *ngIf="
-        loginForm.controls.password?.invalid &&
-        (loginForm.controls.password?.dirty ||
-          loginForm.controls.password?.touched)
-      "
-    >
-      Password is required.
-    </mat-error>
+    @if ( loginForm.controls.password?.invalid &&
+    (loginForm.controls.password?.dirty || loginForm.controls.password?.touched)
+    ) {
+    <mat-error> Password is required. </mat-error>
+    }
   </mat-form-field>
 
-  <mat-error *ngIf="invalidCredentials"
-    >The username or password you entered is incorrect.</mat-error
-  >
+  @if (invalidCredentials) {
+  <mat-error>The username or password you entered is incorrect.</mat-error>
+  }
 
   <div class="auth_actions">
     <span>Forgot password ?</span>
@@ -55,13 +47,15 @@
   </div>
 
   <button mat-flat-button type="submit">
+    @if (loading) {
     <mat-progress-spinner
-      *ngIf="loading"
       class="white-spinner"
       diameter="20"
       mode="indeterminate"
     >
     </mat-progress-spinner>
-    <span *ngIf="!loading">Login</span>
+    } @if (!loading) {
+    <span>Login</span>
+    }
   </button>
 </form>

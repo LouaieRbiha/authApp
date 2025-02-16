@@ -1,6 +1,8 @@
 <h1>User dashboard</h1>
 
-<p *ngIf="user$ | async as user">welcome {{ user.username }}</p>
+@if (user$ | async; as user) {
+<p>welcome {{ user.username }}</p>
+}
 
 <ul>
   <li class="dashboard-actions">
