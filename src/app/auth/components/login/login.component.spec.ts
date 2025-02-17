@@ -30,6 +30,15 @@ describe('LoginComponent', () => {
     expect(spectator.component).toBeTruthy();
   });
 
+  it('should fill out the form with username and password', () => {
+    spectator.component.fillForm();
+
+    expect(spectator.component.loginForm.value).not.toEqual({
+      username: '',
+      password: '',
+    });
+  });
+
   it('should show error message when a required field is not entered', () => {
     const loginForm = spectator.fixture.debugElement.query(
       By.css('[data-testid="login_form"]')

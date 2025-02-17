@@ -1,6 +1,11 @@
 <section>
   <h1>Login story - Fake Database</h1>
-  <p>Connect with <span class="connect_info">user:user</span></p>
+  <p>
+    Connect with
+    <span class="connect_info" aria-hidden="true" (click)="fillForm()"
+      >user:user</span
+    >
+  </p>
 </section>
 
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" data-testid="login_form">

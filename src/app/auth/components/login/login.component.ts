@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
 
 import { Router } from '@angular/router';
+import { first } from 'rxjs';
 
 interface LoginForm {
   username: FormControl<string>;
@@ -58,6 +59,10 @@ export class LoginComponent {
     }),
   });
 
+  fillForm() {
+    this.loginForm.setValue({ username: 'user', password: 'user' });
+  }
+
   onSubmit() {
     this.invalidCredentials.set(false);
 
@@ -69,10 +74,13 @@ export class LoginComponent {
 
     this.loading.set(true);
 
-    this.#authService.login(this.loginForm.value).subscribe((res) => {
-      this.loading.set(false);
-      this.invalidCredentials.set(!res.success);
-      if (res.success) this.#router.navigate(['/dashboard']);
-    });
+    this.#authService
+      .login(this.loginForm.value)
+      .pipe(first())
+      .subscribe((res) => {
+        this.loading.set(false);
+        this.invalidCredentials.set(!res.success);
+        if (res.success) this.#router.navigate(['/dashboard']);
+      });
   }
 }

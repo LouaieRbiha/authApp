@@ -11,6 +11,7 @@ section {
 
   .connect_info {
     color: cornflowerblue;
+    cursor: pointer;
   }
 }
 

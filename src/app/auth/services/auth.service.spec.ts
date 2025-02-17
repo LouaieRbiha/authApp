@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { fakeDb } from '../utils/fakeDb';
+import { first } from 'rxjs';
 
 describe('AuthService', () => {
   let spectator: SpectatorService<AuthService>;
@@ -45,6 +46,7 @@ describe('AuthService', () => {
           username: invalidUser.username,
           password: invalidUser.password,
         })
+        .pipe(first())
         .subscribe((res) => {
           expect(spectator.service.loggedUser).toBeNull();
           expect(res).toEqual({
