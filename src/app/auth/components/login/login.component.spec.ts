@@ -45,7 +45,19 @@ describe('LoginComponent', () => {
     expect(usernameElement?.classList).toContain('ng-invalid');
   });
 
-  it('should be able to change input type based on password visible value', () => {});
+  it('should be able to change input type based on password visible value', () => {
+    const passwordElement: HTMLInputElement | null = spectator.query(
+      byTestId('password_input')
+    );
+
+    spectator.component.isPasswordVisible.set(true);
+    spectator.detectChanges();
+    expect(passwordElement?.type).toBe('text');
+
+    spectator.component.isPasswordVisible.set(false);
+    spectator.detectChanges();
+    expect(passwordElement?.type).toBe('password');
+  });
 
   it('should display a spinner on submit when form is valid', fakeAsync(() => {
     jest
