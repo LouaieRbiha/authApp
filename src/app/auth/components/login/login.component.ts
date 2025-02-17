@@ -60,10 +60,12 @@ export class LoginComponent {
 
   onSubmit() {
     this.invalidCredentials.set(false);
-    this.loginForm.markAllAsTouched();
-    this.loginForm.updateValueAndValidity();
 
-    if (this.loginForm.invalid) return;
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      this.loginForm.updateValueAndValidity();
+      return;
+    }
 
     this.loading.set(true);
 
