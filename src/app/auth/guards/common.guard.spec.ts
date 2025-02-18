@@ -1,5 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn, Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { commonGuard } from './common.guard';
 import { AuthService } from '../services/auth.service';
 import { MockService } from 'ng-mocks';
@@ -28,12 +33,14 @@ describe('commonGuard', () => {
 
   it('should allow to go to auth/login route', () => {
     authServiceMock.loggedUser = null;
-    expect(executeGuard({} as any, {} as any)).toBe(true);
+    expect(
+      executeGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot)
+    ).toBe(true);
   });
 
   it('should redirect to /dashboard', () => {
     authServiceMock.loggedUser = { username: 'aaaa', role: Role.USER };
-    executeGuard({} as any, {} as any);
+    executeGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/dashboard']);
   });
 });

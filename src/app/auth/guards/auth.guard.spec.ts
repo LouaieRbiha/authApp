@@ -1,5 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn, Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 
 import { authGuard } from './auth.guard';
 import { AuthService } from '../services/auth.service';
@@ -29,12 +34,14 @@ describe('authGuard', () => {
 
   it('should allow the route', () => {
     authServiceMock.loggedUser = { username: 'aaaa', role: Role.USER };
-    expect(executeGuard({} as any, {} as any)).toBe(true);
+    expect(
+      executeGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot)
+    ).toBe(true);
   });
 
   it('should redirect to /auth/login', () => {
     authServiceMock.loggedUser = null;
-    executeGuard({} as any, {} as any);
+    executeGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
     expect(mockRouter.navigate).toHaveBeenCalledWith(['/auth/login']);
   });
 });
