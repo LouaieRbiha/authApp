@@ -1,73 +1,80 @@
-<section>
-  <h1>Login story - Fake Database</h1>
-  <p>
-    Connect with
-    <span class="connect_info" aria-hidden="true" (click)="fillForm()"
-      >user:user</span
-    >
-  </p>
-</section>
-
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" data-testid="login_form">
-  <mat-form-field>
-    <mat-label>Username</mat-label>
-    <input matInput formControlName="username" data-testid="username_input" />
-    <mat-icon matSuffix>person</mat-icon>
-
-    @if ( loginForm.controls.username.invalid &&
-    (loginForm.controls.username.dirty || loginForm.controls.username.touched) )
-    {
-    <mat-error data-testid="username_input_error"
-      >Username is required.</mat-error
-    >
-    }
-  </mat-form-field>
-
-  <mat-form-field MatFormFieldControl="password">
-    <mat-label>Password</mat-label>
-    <input
-      matInput
-      [type]="isPasswordVisible() ? 'text' : 'password'"
-      formControlName="password"
-      data-testid="password_input"
-    />
-    <mat-icon
-      class="password_visibility"
-      matSuffix
-      (click)="isPasswordVisible.set(!isPasswordVisible())"
-      >{{ isPasswordVisible() ? 'visibility_off' : 'visibility' }}</mat-icon
-    >
-
-    @if ( loginForm.controls.password.invalid &&
-    (loginForm.controls.password.dirty || loginForm.controls.password.touched) )
-    {
-    <mat-error data-testid="password_input_error">
-      Password is required.
-    </mat-error>
-    }
-  </mat-form-field>
-
-  @if (invalidCredentials()) {
-  <mat-error data-testid="invalid_credentials_error"
-    >The username or password you entered is incorrect.</mat-error
-  >
-  }
-
-  <div class="auth_actions">
-    <span>Forgot password ?</span>
-    <span>Register</span>
+<section class="login-container">
+  <div class="top-card">
+    <h1>Login story - Fake Database</h1>
+    <p>
+      Connect with
+      <span class="connect-info" aria-hidden="true" (click)="fillForm()"
+        >user:user</span
+      >
+    </p>
   </div>
 
-  <button mat-flat-button type="submit" data-testid="login_button">
-    @if (loading()) {
-    <mat-progress-spinner
-      class="white-spinner"
-      diameter="20"
-      mode="indeterminate"
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    class="login-form"
+    data-testid="login_form"
+  >
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" data-testid="username_input" />
+      <mat-icon matSuffix>person</mat-icon>
+
+      @if ( loginForm.controls.username.invalid &&
+      (loginForm.controls.username.dirty || loginForm.controls.username.touched)
+      ) {
+      <mat-error data-testid="username_input_error"
+        >Username is required.</mat-error
+      >
+      }
+    </mat-form-field>
+
+    <mat-form-field MatFormFieldControl="password">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        [type]="isPasswordVisible() ? 'text' : 'password'"
+        formControlName="password"
+        data-testid="password_input"
+      />
+      <mat-icon
+        class="password_visibility"
+        matSuffix
+        (click)="isPasswordVisible.set(!isPasswordVisible())"
+        >{{ isPasswordVisible() ? 'visibility_off' : 'visibility' }}</mat-icon
+      >
+
+      @if ( loginForm.controls.password.invalid &&
+      (loginForm.controls.password.dirty || loginForm.controls.password.touched)
+      ) {
+      <mat-error data-testid="password_input_error">
+        Password is required.
+      </mat-error>
+      }
+    </mat-form-field>
+
+    @if (invalidCredentials()) {
+    <mat-error data-testid="invalid_credentials_error"
+      >The username or password you entered is incorrect.</mat-error
     >
-    </mat-progress-spinner>
-    } @if (!loading()) {
-    <span>Login</span>
     }
-  </button>
-</form>
+
+    <div class="auth_actions">
+      <span class="link">Forgot password ?</span>
+      <span class="link">Register</span>
+    </div>
+
+    <button mat-flat-button type="submit" data-testid="login_button">
+      @if (loading()) {
+      <mat-progress-spinner
+        class="white-spinner"
+        diameter="20"
+        mode="indeterminate"
+      >
+      </mat-progress-spinner>
+      } @if (!loading()) {
+      <span>Login</span>
+      }
+    </button>
+  </form>
+</section>

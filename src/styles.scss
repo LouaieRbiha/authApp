@@ -10,6 +10,10 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+p {
+  margin: unset;
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -22,10 +26,28 @@ body {
   transform: translateX(-4%) !important;
 }
 
+.link {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
+}
+
 :root {
+  --link-color: #6495ed;
+
+  --card-md: 31.25rem;
+
+  --gap-sm: 0.5rem;
+  --gap-lg: 2rem;
+
+  --margin-sm: 0.5rem;
+
   @include mat.progress-spinner-overrides(
     (
-      active-indicator-color: white,
+      active-indicator-color: #ffffff,
     )
   );
 }

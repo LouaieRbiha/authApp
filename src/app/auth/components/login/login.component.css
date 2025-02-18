@@ -1,24 +1,20 @@
-section {
-  margin-bottom: 30px;
+.login-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-lg);
+}
 
-  h1 {
-    margin: 8px 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .connect_info {
-    color: cornflowerblue;
+.top-card {
+  .connect-info {
+    color: var(--link-color);
     cursor: pointer;
   }
 }
 
-form {
+.login-form {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--gap-sm);
 
   .password_visibility {
     cursor: pointer;
@@ -27,13 +23,6 @@ form {
   .auth_actions {
     display: flex;
     justify-content: space-between;
-    margin: 10px 0;
-
-    span {
-      cursor: pointer;
-      &:hover {
-        color: cornflowerblue;
-      }
-    }
+    margin-block: var(--margin-sm);
   }
 }
